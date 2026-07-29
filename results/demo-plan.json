@@ -1,0 +1,142 @@
+{
+  "repository": "C:\\Users\\sschu\\ucla-agentic-ai\\project\\Code-Review-Refactor-Pipeline\\data\\codebases\\problematic_app",
+  "findings": [
+    {
+      "id": "coverage-no-tests",
+      "dimension": "test_coverage",
+      "severity": "high",
+      "path": ".",
+      "line": 1,
+      "title": "No tests detected",
+      "evidence": "Found 2 source files and no test files.",
+      "recommendation": "Add focused unit tests before refactoring."
+    },
+    {
+      "id": "7b9d61b21d",
+      "dimension": "security",
+      "severity": "high",
+      "path": "app.py",
+      "line": 7,
+      "title": "Possible hard-coded credential",
+      "evidence": "password = \"demo-only-secret\"",
+      "recommendation": "Move the value to a secret manager or environment variable."
+    },
+    {
+      "id": "e53c99bbc8",
+      "dimension": "security",
+      "severity": "high",
+      "path": "app.py",
+      "line": 13,
+      "title": "Dynamic code evaluation",
+      "evidence": "return eval(expression)",
+      "recommendation": "Replace eval with a parser or allowlisted dispatch."
+    },
+    {
+      "id": "d73a51ccfb",
+      "dimension": "security",
+      "severity": "high",
+      "path": "app.py",
+      "line": 19,
+      "title": "Shell command injection risk",
+      "evidence": "return os.system(f\"dir {path}\")",
+      "recommendation": "Use argument arrays and validate untrusted input."
+    },
+    {
+      "id": "e188a04607",
+      "dimension": "performance",
+      "severity": "medium",
+      "path": "report.py",
+      "line": 9,
+      "title": "Whole-file read",
+      "evidence": "return Path(path).open(encoding=\"utf-8\").read().splitlines()",
+      "recommendation": "Prefer streaming or bounded reads for untrusted/large files."
+    },
+    {
+      "id": "0978335cb6",
+      "dimension": "style",
+      "severity": "low",
+      "path": "app.py",
+      "line": 25,
+      "title": "Unresolved maintenance marker",
+      "evidence": "# TODO: replace these placeholder operations with safe implementations.",
+      "recommendation": "Track this work or resolve it before release."
+    },
+    {
+      "id": "2d3c0ccf43",
+      "dimension": "performance",
+      "severity": "low",
+      "path": "app.py",
+      "line": 26,
+      "title": "Loop requires performance review",
+      "evidence": "for item in load_report(\"report.txt\"):",
+      "recommendation": "Check for repeated I/O or an avoidable nested traversal."
+    },
+    {
+      "id": "8a5869418d",
+      "dimension": "style",
+      "severity": "low",
+      "path": "report.py",
+      "line": 12,
+      "title": "Long source line",
+      "evidence": "REPORT_DESCRIPTION = \"This deliberately long fixture line exists so the style reviewer has a deterministic line-length violation to report during automated codebase analysis.\"",
+      "recommendation": "Wrap the expression to improve readability."
+    }
+  ],
+  "steps": [
+    {
+      "id": "STEP-001",
+      "title": "Address findings in .",
+      "rationale": "Add focused unit tests before refactoring.",
+      "finding_ids": [
+        "coverage-no-tests"
+      ],
+      "files": [
+        "."
+      ],
+      "depends_on": [],
+      "approved": false,
+      "applied": false,
+      "patch": null,
+      "approved_patch_sha256": null
+    },
+    {
+      "id": "STEP-003",
+      "title": "Address findings in report.py",
+      "rationale": "Prefer streaming or bounded reads for untrusted/large files.",
+      "finding_ids": [
+        "e188a04607",
+        "8a5869418d"
+      ],
+      "files": [
+        "report.py"
+      ],
+      "depends_on": [],
+      "approved": false,
+      "applied": false,
+      "patch": null,
+      "approved_patch_sha256": null
+    },
+    {
+      "id": "STEP-002",
+      "title": "Address findings in app.py",
+      "rationale": "Move the value to a secret manager or environment variable.",
+      "finding_ids": [
+        "7b9d61b21d",
+        "e53c99bbc8",
+        "d73a51ccfb",
+        "0978335cb6",
+        "2d3c0ccf43"
+      ],
+      "files": [
+        "app.py"
+      ],
+      "depends_on": [
+        "STEP-003"
+      ],
+      "approved": false,
+      "applied": false,
+      "patch": null,
+      "approved_patch_sha256": null
+    }
+  ]
+}

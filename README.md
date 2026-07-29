@@ -33,6 +33,9 @@ python -m review_swarm apply plan.json STEP-001
 
 `review` scans and plans in one command. With `--diff`, reviewers inspect only added source lines in a unified PR diff, preserve new-file line numbers, and flag production changes without test changes. `scan` emits findings without a plan. `plan` assigns a safe ordering using file-import dependencies. `generate` creates a minimal unified diff. `approve` binds approval to the exact patch digest; `apply` rejects changed, unapproved, or out-of-scope patches.
 
+For a complete walkthrough using the included fixtures, see the
+[demo guide](docs/demo.md).
+
 ## Tests
 
 From the project directory, install the package and test runner, then run the complete suite:
